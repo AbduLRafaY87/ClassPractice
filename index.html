@@ -1,0 +1,1796 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit & Flex — Premium Gym, Karachi</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --black: #0a0a0a;
+        --dark: #111111;
+        --card: #161616;
+        --border: #222222;
+        --yellow: #f5c518;
+        --yellow-dim: #c9a010;
+        --white: #f0f0f0;
+        --gray: #888888;
+        --light-gray: #555555;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--black);
+        color: var(--white);
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 60px;
+        background: rgba(0 0 0, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        transition: background 0.25s ease, padding 0.25s ease;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-icon {
+        width: 144px;
+        height: 144px;
+        /* border-radius: 50%; */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        letter-spacing: 3px;
+        color: var(--white);
+      }
+
+      .logo-text span {
+        color: var(--yellow);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--gray);
+        text-decoration: none;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--yellow);
+      }
+
+      /* HAMBURGER */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        z-index: 200;
+      }
+
+      .hamburger span {
+        display: block;
+        height: 2px;
+        background: var(--white);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        transform-origin: center;
+        z-index: 200;
+      }
+
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* MOBILE MENU OVERLAY */
+      .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 145;
+        background: rgba(0, 0, 0, 0.55);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+      }
+
+      .mobile-overlay.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(320px, 90vw);
+        z-index: 150;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 24px 20px 32px;
+        transform: translateX(100%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.25s ease, visibility 0.25s ease;
+      }
+
+      .mobile-menu.open {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .mobile-menu .close-button {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 42px;
+        height: 42px;
+        border: none;
+        background: transparent;
+        color: var(--white);
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-menu .close-button:hover {
+        color: var(--yellow);
+      }
+
+      .mobile-menu .mobile-links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 14px;
+      }
+
+      .mobile-menu a {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(20px, 4vw, 30px);
+        letter-spacing: 3px;
+        color: var(--gray);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        padding: 8px 0;
+      }
+
+      .mobile-menu a:hover {
+        color: var(--yellow);
+      }
+
+      .mobile-menu .mobile-cta {
+        margin-top: 24px;
+        background: var(--yellow);
+        color: var(--black) !important;
+        padding: 14px 48px;
+        border-radius: 3px;
+        font-size: 20px;
+        font-family: "Bebas Neue", sans-serif;
+        letter-spacing: 3px;
+      }
+
+      .nav-cta {
+        background: var(--yellow);
+        color: var(--black) !important;
+        padding: 10px 24px;
+        border-radius: 3px;
+        font-weight: 700 !important;
+        color: var(--black);
+      }
+
+      .nav-cta:hover {
+        background: var(--yellow-dim) !important;
+        color: var(--black) !important;
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            105deg,
+            rgba(10, 10, 10, 0.97) 0%,
+            rgba(10, 10, 10, 0.7) 50%,
+            rgba(10, 10, 10, 0.3) 100%
+          ),
+          url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80")
+            center/cover no-repeat;
+      }
+
+      /* Hexagonal LED overlay effect inspired by gym's actual ceiling lights */
+      .hex-lights {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .hex-lights::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          ellipse,
+          rgba(245, 197, 24, 0.06) 0%,
+          transparent 70%
+        );
+      }
+
+      .hex-lights::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 200px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          ellipse,
+          rgba(245, 197, 24, 0.04) 0%,
+          transparent 70%
+        );
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 60px;
+        max-width: 780px;
+        padding-top: 100px;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--yellow);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 32px;
+        height: 2px;
+        background: var(--yellow);
+      }
+
+      .hero h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(72px, 9vw, 130px);
+        line-height: 0.9;
+        letter-spacing: 2px;
+        color: var(--white);
+        margin-bottom: 28px;
+      }
+
+      .hero h1 em {
+        font-style: normal;
+        color: var(--yellow);
+        display: block;
+      }
+
+      .hero-sub {
+        font-size: 16px;
+        color: #aaaaaa;
+        line-height: 1.7;
+        max-width: 460px;
+        margin-bottom: 44px;
+        font-weight: 300;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--yellow);
+        color: var(--black);
+        padding: 16px 36px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 3px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-primary:hover {
+        background: var(--yellow-dim);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--white);
+        padding: 16px 36px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border: 1px solid #444;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 3px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+
+      .btn-outline:hover {
+        border-color: var(--yellow);
+        color: var(--yellow);
+      }
+
+      .hero-stats {
+        /* position: absolute; */
+        /* bottom: 52px; */
+        /* left: 60px; */
+        /* right: 60px; */
+        display: flex;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        background: rgba(22, 22, 22, 0.85);
+        backdrop-filter: blur(8px);
+        max-width: 700px;
+        margin-block: 20px;
+      }
+
+      .stat {
+        flex: 1;
+        padding: 22px 32px;
+        border-right: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-right: none;
+      }
+
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 38px;
+        color: var(--yellow);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        color: var(--gray);
+        text-transform: uppercase;
+      }
+
+      /* TICKER */
+      .ticker {
+        background: var(--yellow);
+        padding: 12px 0;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .ticker-inner {
+        display: inline-flex;
+        animation: ticker 22s linear infinite;
+        gap: 0;
+      }
+
+      .ticker-item {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--black);
+        padding: 0 40px;
+      }
+
+      .ticker-dot {
+        color: var(--black);
+        opacity: 0.4;
+        font-size: 18px;
+      }
+
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ABOUT */
+      .about {
+        padding: 120px 60px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+
+      .section-eyebrow {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--yellow);
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 2px;
+        background: var(--yellow);
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(42px, 4.5vw, 62px);
+        line-height: 1;
+        letter-spacing: 1px;
+        color: var(--white);
+        margin-bottom: 24px;
+      }
+
+      .section-title span {
+        color: var(--yellow);
+      }
+
+      .about-body {
+        font-size: 15px;
+        color: #999;
+        line-height: 1.8;
+        margin-bottom: 40px;
+      }
+
+      .about-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--white);
+        font-weight: 500;
+      }
+
+      .feature-item::before {
+        content: "⚡";
+        font-size: 14px;
+      }
+
+      .about-image-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 260px 260px;
+        gap: 12px;
+      }
+
+      .about-img {
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.85);
+        transition:
+          filter 0.3s,
+          transform 0.4s;
+      }
+
+      .about-img:hover img {
+        filter: brightness(1);
+        transform: scale(1.03);
+      }
+
+      .about-img:first-child {
+        grid-row: 1 / 3;
+      }
+
+      /* SERVICES */
+      .services {
+        background: var(--dark);
+        padding: 100px 60px;
+      }
+
+      .services-header {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 64px;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .service-card {
+        background: var(--card);
+        padding: 48px 36px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+        cursor: default;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--yellow);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s;
+      }
+
+      .service-card:hover {
+        background: #1a1a1a;
+      }
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .service-icon {
+        font-size: 32px;
+        margin-bottom: 20px;
+        display: block;
+        color: var(--yellow);
+      }
+
+      .service-card h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 12px;
+      }
+
+      .service-card p {
+        font-size: 14px;
+        color: var(--gray);
+        line-height: 1.7;
+      }
+
+      /* MEMBERSHIPS */
+      .memberships {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .memberships-header {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 64px;
+      }
+
+      .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .plan-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 44px 36px;
+        position: relative;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+
+      .plan-card:hover {
+        transform: translateY(-6px);
+        border-color: #444;
+      }
+
+      .plan-card.featured {
+        border-color: var(--yellow);
+        background: #141200;
+      }
+
+      .plan-badge {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--yellow);
+        color: var(--black);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 5px 18px;
+        border-radius: 2px;
+      }
+
+      .plan-name {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-bottom: 16px;
+      }
+
+      .plan-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 64px;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .plan-price sup {
+        font-family: "Inter", sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        vertical-align: super;
+      }
+
+      .plan-price-label {
+        font-size: 12px;
+        color: var(--gray);
+        margin-bottom: 32px;
+        letter-spacing: 1px;
+      }
+
+      .plan-features {
+        list-style: none;
+        margin-bottom: 36px;
+      }
+
+      .plan-features li {
+        font-size: 14px;
+        color: #aaa;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .plan-features li::before {
+        content: "✓";
+        color: var(--yellow);
+        font-weight: 700;
+      }
+
+      .plan-features li.off {
+        color: #444;
+      }
+      .plan-features li.off::before {
+        content: "✕";
+        color: #333;
+      }
+
+      /* GALLERY */
+      .gallery {
+        background: var(--dark);
+        padding: 100px 0;
+      }
+
+      .gallery-header {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 64px;
+        padding: 0 60px;
+      }
+
+      .gallery-strip {
+        display: flex;
+        gap: 4px;
+        overflow: hidden;
+      }
+
+      .gallery-item {
+        flex: 0 0 calc(100% / 4);
+        height: 340px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.75) grayscale(20%);
+        transition:
+          filter 0.4s,
+          transform 0.5s;
+        display: block;
+      }
+
+      .gallery-item:hover img {
+        filter: brightness(1) grayscale(0%);
+        transform: scale(1.06);
+      }
+
+      .gallery-item-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 32px 20px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--white);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .gallery-item:hover .gallery-item-label {
+        opacity: 1;
+      }
+
+      /* TRAINERS */
+      .trainers {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .trainers-header {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 64px;
+      }
+
+      .trainers-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .trainer-card {
+        background: var(--card);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .trainer-img {
+        height: 280px;
+        overflow: hidden;
+      }
+
+      .trainer-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(30%);
+        transition:
+          filter 0.3s,
+          transform 0.4s;
+        display: block;
+      }
+
+      .trainer-card:hover .trainer-img img {
+        filter: grayscale(0%);
+        transform: scale(1.04);
+      }
+
+      .trainer-info {
+        padding: 24px;
+        border-top: 3px solid var(--yellow);
+      }
+
+      .trainer-name {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+
+      .trainer-role {
+        font-size: 12px;
+        color: var(--yellow);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* LOCATION */
+      .location {
+        background: var(--dark);
+        padding: 100px 60px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+
+      .hours-table {
+        width: 100%;
+        margin-top: 32px;
+      }
+
+      .hours-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+      }
+
+      .hours-day {
+        color: var(--gray);
+      }
+      .hours-time {
+        color: var(--white);
+        font-weight: 500;
+      }
+      .hours-time.yellow {
+        color: var(--yellow);
+      }
+
+      .map-placeholder {
+        background: var(--card);
+        border-radius: 4px;
+        height: 380px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .map-placeholder iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        filter: grayscale(80%) invert(90%) contrast(90%);
+      }
+
+      .contact-info {
+        margin-top: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 15px;
+        color: #bbb;
+      }
+
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        background: #1a1a1a;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        color: var(--yellow);
+      }
+
+      /* CTA BANNER */
+      .cta-banner {
+        background: var(--yellow);
+        padding: 80px 60px;
+        text-align: center;
+      }
+
+      .cta-banner h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(48px, 6vw, 80px);
+        letter-spacing: 2px;
+        color: var(--black);
+        margin-bottom: 12px;
+      }
+
+      .cta-banner p {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 36px;
+        font-weight: 400;
+      }
+
+      .btn-dark {
+        background: var(--black);
+        color: var(--white);
+        padding: 16px 44px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.2s;
+      }
+
+      .btn-dark:hover {
+        background: #1a1a1a;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #080808;
+        padding: 60px 60px 32px;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 48px;
+      }
+
+      .footer-brand-text {
+        font-size: 14px;
+        color: var(--gray);
+        line-height: 1.8;
+        margin-top: 16px;
+        max-width: 300px;
+      }
+
+      .footer-col h4 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 20px;
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col li {
+        font-size: 14px;
+        color: var(--gray);
+        padding: 6px 0;
+      }
+
+      .footer-col a {
+        color: var(--gray);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-col a:hover {
+        color: var(--yellow);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: #444;
+        letter-spacing: 0.5px;
+      }
+
+      .footer-ig {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--gray);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footer-ig:hover {
+        color: var(--yellow);
+      }
+
+      /* SCROLL REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* RESPONSIVE BASICS */
+      @media (max-width: 900px) {
+        nav {
+          padding: 14px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .hero-content {
+          padding: 0 24px;
+          padding-top: 100px;
+        }
+        .hero-stats {
+          left: 24px;
+          right: 24px;
+          flex-wrap: wrap;
+        }
+        .about {
+          grid-template-columns: 1fr;
+          padding: 80px 24px;
+        }
+        .services {
+          padding: 80px 24px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .memberships {
+          padding: 80px 24px;
+        }
+        .plans-grid {
+          grid-template-columns: 1fr;
+        }
+        .gallery-item {
+          flex: 0 0 80vw;
+        }
+        .trainers {
+          padding: 80px 24px;
+        }
+        .trainers-grid {
+          grid-template-columns: 1fr;
+        }
+        .location {
+          grid-template-columns: 1fr;
+          padding: 80px 24px;
+          gap: 40px;
+        }
+        .cta-banner {
+          padding: 60px 24px;
+        }
+        footer {
+          padding: 60px 24px 24px;
+        }
+        .footer-top {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">
+        <img
+          src="data:image/png;base64,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"
+          alt="Fit & Flex Logo"
+          style="
+            height: 74px;
+            width: 74px;
+            object-fit: contain;
+            border-radius: 10%;
+          "
+        />
+        <!-- <div class="logo-text">FIT <span>&</span> FLEX</div> -->
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#memberships">Membership</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#contact" class="nav-cta">Join Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-button" id="mobileClose" type="button" aria-label="Close menu">×</button>
+      <div class="mobile-links">
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#memberships" class="mobile-link">Membership</a>
+        <a href="#gallery" class="mobile-link">Gallery</a>
+        <a href="#location" class="mobile-link">Location</a>
+        <a href="#contact" class="mobile-cta mobile-link">Join Now</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hex-lights"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Jamshed Quarters, Karachi</div>
+        <h1>ELEVATE<em>YOUR GAME.</em></h1>
+        <p class="hero-sub">
+          Premium fitness. Modern equipment. Certified trainers. Everything you
+          need to transform your body and your mindset — right in your
+          neighborhood.
+        </p>
+        <div class="hero-actions">
+          <a href="#memberships" class="btn-primary">Start Today</a>
+          <a href="#gallery" class="btn-outline">See the Gym</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">500+</div>
+            <div class="stat-label">Active Members</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">Expert Trainers</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Equipment Pieces</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Training Zones</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker">
+      <div class="ticker-inner">
+        <span class="ticker-item">Premium Fitness</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Modern Equipment</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Certified Trainers</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Karachi's Best Gym</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Elevate Your Performance</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Join Fit & Flex</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Premium Fitness</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Modern Equipment</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Certified Trainers</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Karachi's Best Gym</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Elevate Your Performance</span
+        ><span class="ticker-dot">◆</span>
+        <span class="ticker-item">Join Fit & Flex</span
+        ><span class="ticker-dot">◆</span>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="reveal">
+        <div class="section-eyebrow">Who We Are</div>
+        <h2 class="section-title">
+          NOT JUST A GYM.<br /><span>A MOVEMENT.</span>
+        </h2>
+        <p class="about-body">
+          Fit & Flex was built for people who are serious about their fitness.
+          Located in the heart of Jamshed Quarters, we bring world-class
+          training facilities to Karachi — with multi-level training floors,
+          premium equipment, and expert coaches who push you past your limits.
+        </p>
+        <div class="about-features">
+          <div class="feature-item">Modern Equipment</div>
+          <div class="feature-item">Certified Coaches</div>
+          <div class="feature-item">Cardio & Weight Zone</div>
+          <div class="feature-item">Separate Timings</div>
+          <div class="feature-item">AC Environment</div>
+          <div class="feature-item">Locker Rooms</div>
+        </div>
+      </div>
+      <div class="about-image-grid reveal">
+        <div class="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
+            alt="Gym floor"
+          />
+        </div>
+        <div class="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80"
+            alt="Equipment"
+          />
+        </div>
+        <div class="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=80"
+            alt="Training"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <div class="services-header reveal">
+        <div class="section-eyebrow" style="justify-content: center">
+          What We Offer
+        </div>
+        <h2 class="section-title">EVERYTHING<br /><span>YOU NEED.</span></h2>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <span class="service-icon"><i class="fa-solid fa-dumbbell"></i></span>
+          <h3>Strength Training</h3>
+          <p>
+            Full weight floor with barbells, dumbbells, cables, and plate-loaded
+            machines. Built for powerlifters and bodybuilders alike.
+          </p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"><i class="fa-solid fa-bicycle"></i></span>
+          <h3>Cardio Zone</h3>
+          <p>
+            Treadmills, spin bikes, stair climbers, and ellipticals. Our cardio
+            zone is designed to get your heart rate up and keep it there.
+          </p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"
+            ><i class="fa-solid fa-user-check"></i
+          ></span>
+          <h3>Personal Training</h3>
+          <p>
+            One-on-one sessions with our certified trainers. Custom programs
+            tailored to your body and goals — no guesswork.
+          </p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"
+            ><i class="fa-solid fa-apple-whole"></i
+          ></span>
+          <h3>Diet & Nutrition</h3>
+          <p>
+            Training is only half the battle. Our nutrition guidance helps you
+            fuel correctly and see faster, lasting results.
+          </p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"
+            ><i class="fa-solid fa-people-group"></i
+          ></span>
+          <h3>Group Classes</h3>
+          <p>
+            High-energy group sessions that keep you accountable. From HIIT to
+            functional training — there's a class for every fitness level.
+          </p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"><i class="fa-solid fa-lock"></i></span>
+          <h3>Secure Lockers</h3>
+          <p>
+            Dedicated locker rooms for all members. Train without distractions —
+            your belongings are safe while you focus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBERSHIPS -->
+    <section class="memberships" id="memberships">
+      <div class="memberships-header reveal">
+        <div class="section-eyebrow" style="justify-content: center">
+          Pricing
+        </div>
+        <h2 class="section-title">SIMPLE.<br /><span>TRANSPARENT.</span></h2>
+        <p style="color: #888; font-size: 14px; margin-top: 12px">
+          No hidden fees. No confusing tiers. Just pick your plan and start.
+        </p>
+      </div>
+      <div class="plans-grid reveal">
+        <div class="plan-card">
+          <div class="plan-name">Basic</div>
+          <div class="plan-price"><sup>Rs</sup>3,500</div>
+          <div class="plan-price-label">/ month</div>
+          <ul class="plan-features">
+            <li>Gym floor access</li>
+            <li>Cardio zone</li>
+            <li>Locker room</li>
+            <li class="off">Personal trainer</li>
+            <li class="off">Diet consultation</li>
+          </ul>
+          <a
+            href="#contact"
+            class="btn-outline"
+            style="
+              width: 100%;
+              text-align: center;
+              display: block;
+              padding: 14px;
+            "
+            >Get Started</a
+          >
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price"><sup>Rs</sup>6,000</div>
+          <div class="plan-price-label">/ month</div>
+          <ul class="plan-features">
+            <li>Full gym access</li>
+            <li>Cardio zone</li>
+            <li>Locker room</li>
+            <li>4x PT sessions/month</li>
+            <li class="off">Diet consultation</li>
+          </ul>
+          <a
+            href="#contact"
+            class="btn-primary"
+            style="
+              width: 100%;
+              text-align: center;
+              display: block;
+              padding: 14px;
+            "
+            >Get Started</a
+          >
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Elite</div>
+          <div class="plan-price"><sup>Rs</sup>9,500</div>
+          <div class="plan-price-label">/ month</div>
+          <ul class="plan-features">
+            <li>Full gym access</li>
+            <li>Cardio zone</li>
+            <li>Locker room</li>
+            <li>Unlimited PT sessions</li>
+            <li>Diet consultation</li>
+          </ul>
+          <a
+            href="#contact"
+            class="btn-outline"
+            style="
+              width: 100%;
+              text-align: center;
+              display: block;
+              padding: 14px;
+            "
+            >Get Started</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+      <div class="gallery-header reveal">
+        <div class="section-eyebrow" style="justify-content: center">
+          Inside Fit & Flex
+        </div>
+        <h2 class="section-title">SEE THE<br /><span>FACILITY.</span></h2>
+      </div>
+      <div class="gallery-strip">
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
+            alt="Gym floor"
+          />
+          <div class="gallery-item-label">Main Floor</div>
+        </div>
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80"
+            alt="Cardio zone"
+          />
+          <div class="gallery-item-label">Cardio Zone</div>
+        </div>
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&q=80"
+            alt="Weights"
+          />
+          <div class="gallery-item-label">Weight Room</div>
+        </div>
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+            alt="Training"
+          />
+          <div class="gallery-item-label">Personal Training</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINERS -->
+    <section class="trainers" id="trainers">
+      <div class="trainers-header reveal">
+        <div class="section-eyebrow" style="justify-content: center">
+          Our Team
+        </div>
+        <h2 class="section-title">CERTIFIED<br /><span>TRAINERS.</span></h2>
+        <p style="color: #888; font-size: 14px; margin-top: 12px">
+          Every coach at Fit & Flex is certified and passionate about your
+          transformation.
+        </p>
+      </div>
+      <div class="trainers-grid reveal">
+        <div class="trainer-card">
+          <div class="trainer-img">
+            <img
+              src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=80"
+              alt="Trainer"
+            />
+          </div>
+          <div class="trainer-info">
+            <div class="trainer-name">Ahmed Raza</div>
+            <div class="trainer-role">
+              Head Trainer · Strength & Conditioning
+            </div>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-img">
+            <img
+              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&q=80"
+              alt="Trainer"
+            />
+          </div>
+          <div class="trainer-info">
+            <div class="trainer-name">Bilal Khan</div>
+            <div class="trainer-role">Certified PT · Bodybuilding</div>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-img">
+            <img
+              src="https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=600&q=80"
+              alt="Trainer"
+            />
+          </div>
+          <div class="trainer-info">
+            <div class="trainer-name">Usman Ali</div>
+            <div class="trainer-role">Cardio Specialist · HIIT</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section style="background: var(--dark)" id="location">
+      <div class="location">
+        <div class="reveal">
+          <div class="section-eyebrow">Find Us</div>
+          <h2 class="section-title">VISIT<br /><span>THE GYM.</span></h2>
+          <div class="contact-info">
+            <div class="contact-row">
+              <div class="contact-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              Jamshed Rd, Jamshed Quarters Amil Colony, Karachi
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+              0310-4448222
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              DM on Instagram to Join
+            </div>
+          </div>
+          <div class="hours-table">
+            <div class="hours-row">
+              <span class="hours-day">Mon – Sat (Males)</span
+              ><span class="hours-time yellow">7:00 AM – 11:00 AM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Mon – Sat (Females)</span
+              ><span class="hours-time yellow">12:00 PM – 6:00 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Mon – Sat (Combined)</span
+              ><span class="hours-time">4:00 PM – 7:00 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Evening (Males)</span
+              ><span class="hours-time">7:00 PM – 2:00 AM</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Sunday</span
+              ><span class="hours-time" style="color: #666">Closed</span>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.0!2d67.0543!3d24.8697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDUyJzEwLjkiTiA2N8KwMDMnMTUuNSJF!5e0!3m2!1sen!2s!4v1"
+            allowfullscreen=""
+            loading="lazy"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner" id="contact">
+      <h2>READY TO START?</h2>
+      <p>Call us, DM us, or just walk in. We'll take care of the rest.</p>
+      <a href="tel:03104448222" class="btn-dark">Call 0310-4448222</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div>
+          <div class="nav-logo">
+            <img
+              src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWAJYDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBgkCBAUBA//EAEwQAAAFAgMFBAUGCwMNAAAAAAABAgMEBQYHERIIExQhMRUiMkEjQlFSYRYXM2JxkQkYJVNygYKSobHBJHWiJic3Q0RUY3ODo7Kzwv/EABgBAQEBAQEAAAAAAAAAAAAAAAABAgME/8QAIBEBAAIBAwUBAAAAAAAAAAAAAAECAxESQQQTITFxUf/aAAwDAQACEQMRAD8ApkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD07colVuKuRKLRIS5lQmObphhGWa1fr5APMHIWYsfY5xCqul25KlS7fZ/N6uJe/dT3f8AEJ0sfZFwwoZNu1vtK45Cf96d3TP7iMv4qMBr8p8CZPloiwYkiXIX4WmWzWtX7KeY/OQy8w64080ptxCjQpKuRpMupDZ9iMVtYSYSV2rW1Q6bSXI8Q2onDMJbM319xrvdT7yvMax929Kn7prW8845pT5mtRn/AFMRdPGrp5D4NmNj4B2A1hZQ7Zue1qbUZcaIXEyVN6Ht8rvOekTkrkasi5+Qj6+NjGzqgSnrTr1Sorv5mRlJZ/osvvMVFDwE9X/sq4pWwxIlxIkCuQWEG4p2DIyXpIszPdryP7sxAxkA+AAAAAAAAAAAAAAAAAJW2TDab2g7RddPuokrX9zTgikSZsvTEwcf7MkL8PaaGv3yUj/6AbEIN03XVX/yVZL0aIZ92TVJSY+sve3aSUv7yIZdTO0eHLtBcZT3nuEGSS/ePM/4Dz7nuSk27BckVCbHbcSy460xvkk6/oQazShJnmo8kiJ8N8aqrc1EhXrUbeh02y5844G/TKU7Jhu6tCXH+RJ3alHpzT4c0mfLpG7XifUaMG2+Lr3cGl2nHX4G1VOSX/bZL7zcV+yKn4LVig2/iZR69ccGVPgU5/iOGjkjU44n6PxqIstWRn9guDjBs/3fft61qvP3BQURZy29w2829rZabTpQnly94/tMVAxbsOTh9iC/aT1Ti1OQylpTjkXVozcTq097zIhivL15O3NMdaTrPP1c/wDGutz0Omybpc37iWmdPDq1rUeSSL0nmYsNGcW5GbWtpTKlJIzbVkZoPzI8uXLpyFGtmK26e3XZV6XCRN29ZLG/cc8W9nKT3cveUjyL3tAnpeMlfoOIttWzedrRaazdGp2AceYan4SM/DJSpOnV7dB8unkGO25OvxY8OXZj49/Uw3MlKrdqSFetEd/8DGn176QbarrrtNew2rVbp1QizYjdNkOpfjupcbVk0r1k5kNSax0eJxAAAAAAAAAAAAAAAAAeradUXRLmpdYQWaoM1mUX/TWSv6DygAWIu/EH5YY2WNiFUC4SJU43BvtpV3Y3pXY7nX6riVH+kMswLjXxXcIbxwYtmoUunVyBV1tyymp8UNz0b2nunlktP+LkIhsfCG+r9snta0WmKpAib5T8biEpdZfIizQlB+I1p0mnLr9pCVLRoeMlJuCiYtUSwqz2wTaINchvN6O0U+DfafF30pTr5clp1+tyDIrA2eKtf1Bcql7YpXAqREmyIMmIlSnNy4w4ptXfcV7E5+HoYrNToMdV3zSo2/nxmJamoG8+kfM16Gc/LUfIXlrM+u2Js84g3TcFPKiVSsS5s5mDxKXTjKk6Gmka08tfrHl5iDNhqwPlBffyhms6qdb2T/1XZq/oy/YT3vtyGbu/T32W7n47q8M8bLErNItS3azAuZt3/KF2iKPSzvGXG/pNeWr0ik5d7noH7Y43W/WdorjpO6S3YtuOvzNyrUlErc95vV/z3W0CdMavnBtu8HL3si0zuRxdvLpm7beTvIr2/wB4h3d9XE/VL2CrtawqxWYozdrFaFXkV265qZVaqjhJUyfPW2zvCzJKSNW8cUrLvaS9Tmcpnc8CycRJti4CVi3OH3rV3uS2s9XeZShttvWny5mpST/RELKEi412hcFlzKVRLp4eNPZiaWILDyXdzHJSslqUnlqcXvFfzEcDTIAAAAAAAAAAAAAAAAAAACwOxTiYmx8TCo1TkbujV8kxndSu60+X0S/46f2hsUSQ02JPSNgexxji1e1CZsy45WVy09rSw44rnPYSXi+LiS8Xt8XtyDzvwhFwLj2Lb1oRC3kmsVLemynqtDRciy+K1p+4S/s92EjDvC+l2+7znqb4moq9+Q5zX93JJfBIjeqW+WI+2DxctreUSwoLHL1VznPSIT+rUSv2BYwB80jy7orNMty3p9eq0jhoEBhT77nsSRfz8i+I6KrnjvXudrQiS+/GicVUF+rGSrk0lX11nqMk+6kz9mdLdtLHFu7px2Ha83XQ4Tv9vksq7sx8vVT7W0H958+hEAgrFm8Z1/X9WLrnd1U5/U23+aaT3W0fqTkQxIchxAAAAAAAAAAAAAAAAGYYX4fXJiPcDtDtaOxImtMKkqbekJa9Gk0pPmr9IgGHgJmujZrxVtmjOVerUiA1EbW20pSag2rvOOJbR0P3lkDWzZik5dki1U0qB2nHhInON9oN5bpa1ISerp1QrkAhkd2kVKbSakxUKdKdiTIzhOsPsq0rQouhkYmeXsq4wQor0uRR6cTLCFOOflJroRZ+0Rjh9Zlw35crNv2zA4ye8k16dRJShJdVKUrklJALcbJOPNpvMTaFdshNMuSqVB2c/UnzJLM91f1ujakkSUknw+wZbi3tI0uLIctfDNyLXK8eZO1FxzTT4Bes4tw+Ssv3fj5HTLFTCi9sM3InyrpjbDMvPcPsvJeaWZdU6k+t8DGOWfSKtctwQLZo/pJdSfSwy0pzQhaz8OZnyAS5fmMr9MtObY9l1SVL7ReW/cVxO92RV31+PR5ts+qXmZe75wSo8xOsvZVxjjRXJb1Hp+7abNavyk10Ln7Rgd2YYXZbFi0W9KtEYRSK1oOG4iShS16ka05oLmnkAwUBIGE+Et54nlP+SUKNJ4DRv99JQ1p156fF18Iyit7NWKlEcpyKlTabHOpS0wY2qpNZLeUlSkp6+enl8eQCFwEkpwXxB+dD5t+xPy/ud/u9+ndbrTq17zw6fj7eXUYleduzrTuSbb1V4fj4Tm7kFHeS8lCvNOpPLMvP4gPDAAAAAAAAAAFlfwd/+m6f/cj3/taFahnGEGJVewvuR+v241DclvRlRlcU2a06FKSryMueaQE64t1SwzuuFEtjE29KzWHLoZRPpNQkvHFQjiO9klSST3V5Zcx928a9W6DjVTV0Os1ClqeobSXFQ5C2dZb53rpMsxWty4Zrl4fKfS1xqp/HadPo95vNfT3c/IZBi/ibcGKFyRq9cbUNuWxGKMnhWzQnSSlK8zPzUAsht53FcNHYsRFLrlTgJl0+RxPDyltb76Hx6TLV1PqMS/B+U+d84NeuFuW2zTKbSjRObNGpTus806fPlu8/4eYiXF7Fm5sUOxyuRqA32S0pqNwrJo5K056szP3CHQwnxIujDS41Vq2pbbTjje6kNPN62nkddK0/yPqQC62Mdk2tiHh5Taq1XGIuG9FosioxOzlaXVSE+HPWk/RknUWnxauop7s0l/n9sj++GP5jPZe1niS8Tsbs62eAdaNpcHs7NrI/F62Z5+ZdBD9u3bLt++4l30mDCjS4U3jGI2lW4QojzJOnPPSX2gLe7WdWsaDWrh32Jt40m7G6cnhaPDlPNwlK3fc8KdPe8+8Mb2ioUqdshYTswoj8lzdxe6y2pz/ZVe6K3YpX1WcQ7vfuivIiomvNttK4ZvQ3khOkuWZiT7T2qcR7ZtimW9S4dB4Omxm4zG8iqUrQgtJZnrASbsBRnafRsQ2qmzNiegjqc9GpDqUaHuafPP2fERzj/Vra7JpB2JcGI8t9uZvH+3HpJtoURejUjecteroOtD2psRol0VK4WYtB42osMMP/ANlVp0s69GXe/wCIrMcbm2or/uNEBqs0y25DEGa1OZa4NenfNZ6NXf5kRnqyAXDW5dfzP9vdmU350/kx4f8AXe99vXvaem85DWdOckPS3XZC1reW4anFOeI1Gfez+OYlT8YTET51PnE4uL2pwfA7jcnw249zRn73e69RHd5V565rknV6RChQn5zxvusw2920S1eI0pzPLM+Z/EB4oAAAAAAAAAAAADkOIAA5DiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k="
+              alt="Fit & Flex Logo"
+              style="
+                height: 44px;
+                width: 44px;
+                object-fit: contain;
+                border-radius: 50%;
+              "
+            />
+            <div class="logo-text">
+              FIT <span style="color: var(--yellow)">&</span> FLEX
+            </div>
+          </div>
+          <p class="footer-brand-text">
+            Premium Fitness · Modern Equipment · Certified Trainers. Elevate
+            your performance with us — Jamshed Quarters, Karachi.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#memberships">Membership</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>0310-4448222</li>
+            <li>Jamshed Quarters</li>
+            <li>Karachi, Pakistan</li>
+            <li><a href="https://instagram.com/fitflex_25">@fitflex_25</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Fit & Flex. All rights reserved.</span>
+        <a href="https://instagram.com/fitflex_25" class="footer-ig"
+          ><i class="fa-brands fa-instagram"></i> Follow on Instagram</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
+      );
+      reveals.forEach((r) => observer.observe(r));
+
+      // Hamburger menu
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const mobileClose = document.getElementById("mobileClose");
+
+      const closeMobileMenu = () => {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+        mobileOverlay.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open menu");
+        document.body.style.overflow = "";
+      };
+
+      const openMobileMenu = () => {
+        hamburger.classList.add("open");
+        mobileMenu.classList.add("open");
+        mobileOverlay.classList.add("open");
+        hamburger.setAttribute("aria-expanded", "true");
+        hamburger.setAttribute("aria-label", "Close menu");
+        document.body.style.overflow = "hidden";
+      };
+
+      hamburger.addEventListener("click", () => {
+        if (mobileMenu.classList.contains("open")) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+
+      mobileClose.addEventListener("click", closeMobileMenu);
+      mobileOverlay.addEventListener("click", closeMobileMenu);
+
+      document.querySelectorAll(".mobile-link").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && mobileMenu.classList.contains("open")) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && mobileMenu.classList.contains("open")) {
+          closeMobileMenu();
+        }
+      });
+
+      // Nav scroll opacity
+      window.addEventListener("scroll", () => {
+        const nav = document.querySelector("nav");
+        nav.style.background =
+          window.scrollY > 60 ? "rgba(10,10,10,0.98)" : "rgba(10,10,10,0.92)";
+      });
+    </script>
+  </body>
+</html>
